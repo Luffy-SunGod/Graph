@@ -3,29 +3,33 @@ package Contest346;
 import java.util.*;
 
 public class Q1 {
-    public int minLength(String s) {
-        List<Character> list=new ArrayList<>();
-         char c[]=s.toCharArray();
-         for(char x:c)list.add(x);
- 
-         int i=0;
-         while(i<list.size()-1){
-              // System.out.println(list);
-             if(list.get(i)=='A'&&list.get(i+1)=='B'){
-                 
-                 list.remove(i);
-                 list.remove(i);
-                 i=0;
-             }
-             else if(list.get(i)=='C'&&list.get(i+1)=='D'){
-                 list.remove(i);
-                 list.remove(i);
-                 i=0;
-             }
-             else
-             i++;
-         }
-        
-         return list.size();
-     }
+     
+    public static int  function(HashMap<Integer,List<Integer>> red,HashMap<Integer,List<Integer>> blue){
+        int ans=0;
+
+        for(int i:red.keySet()){
+            ans+=dfs(i,red,0,"red",new HashSet<>());
+        }
+
+        return ans;
+    }
+
+    public  static int dfs(int src,HashMap<Integer,List<Integer>> map,int count,String col,Set<Integer> visited){
+        if(visited.contains(src)&&count==3)return 1;
+        if(visited.contains(src))return 0;
+        int ans=0;
+        visited.add(src);
+
+        for(int i:map.get(src)){
+            ans+=dfs(i,map,count+1,col,visited);
+        }
+        return ans;
+    }
+
 }
+
+
+
+// 4
+// 0 0 0 0 0
+// 5 2 5 1 1

@@ -1,21 +1,30 @@
 package Contest346;
 
+
+import java.util.*;
+
 public class Q2 {
-    public String makeSmallestPalindrome(String s) {
-        char[]a=s.toCharArray();
-        int i=0;
-        int j=a.length-1;
-        while(i<=j){
-            if(a[i]!=a[j]){
-                if(a[i]<a[j]){
-                    a[j]=a[i];
-                }else{
-                    a[i]=a[j];
-                }
-            }
-            i++;
-            j--;
+    public int deleteAndEarn(int[] nums) {
+        Set<Integer> set=new HashSet<Integer>();
+        Map<Integer,Integer> map=new HashMap<>();
+        for(int i:nums){
+            map.put(i,map.getOrDefault(i,0)+1);
+            set.add(1);           
         }
-        return new String(a);
+        int[]a=new int[set.size()];
+        int idx=0;
+        for(int i:set){
+            a[idx]=i;
+            idx++;
+        }
+
+
+    }
+    public int rec(int[]a,int i,int prev){
+        if(i==a.length)return 0;
+        int take=0,not=0;
+        if(prev==0||a[i]!=prev-1||a[i]!=prev+1)take=a[i]+rec(a,i+1,a[i]);
+        not=rec(a,i+1,prev);
+        return Math.max(take,not);
     }
 }
